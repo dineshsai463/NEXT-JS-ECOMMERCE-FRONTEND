@@ -3,7 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SK);
 import {buffer} from 'micro';
 import {Order} from "@/models/Order";
 
- const endpoint_secret = 'whsec_cdb418084bed8e30547e42c2d2428ec149165fb265cb160fd751252b3f013176'
+ const endpointSecret = 'whsec_cdb418084bed8e30547e42c2d2428ec149165fb265cb160fd751252b3f013176'
 
 export default async function handler(req,res) {
   await mongooseConnect();
@@ -12,7 +12,7 @@ export default async function handler(req,res) {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(await buffer(req), sig, endpoint_secret);
+    event = stripe.webhooks.constructEvent(await buffer(req), sig, endpointSecret);
   } catch (err) {
     res.status(400).send(`Webhook Error: ${err.message}`);
     return;
