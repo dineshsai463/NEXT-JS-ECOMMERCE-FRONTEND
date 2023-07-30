@@ -50,7 +50,6 @@ export default function AccountPage() {
   const [activeTab, setActiveTab] = useState('Orders');
   const [orders, setOrders] = useState([]);
 
-
   async function logout() {
     await signOut({
       callbackUrl: process.env.NEXT_PUBLIC_URL,
@@ -93,16 +92,15 @@ export default function AccountPage() {
       return [...products.filter(p => p._id.toString() !== idToRemove)];
     });
   }
-  
   return (
     <>
-     <Header/>
-     <Center>
-      <ColsWrapper>
-       <div>
-        <RevealWrapper delay ={0}> </RevealWrapper>
-          <WhiteBox>
-          <Tabs
+      <Header />
+      <Center>
+        <ColsWrapper>
+          <div>
+            <RevealWrapper delay={0}>
+              <WhiteBox>
+                <Tabs
                   tabs={['Orders','Wishlist']}
                   active={activeTab}
                   onChange={setActiveTab}
@@ -118,7 +116,7 @@ export default function AccountPage() {
                           <p>Login to see your orders</p>
                         )}
                         {orders.length > 0 && orders.map(o => (
-                          <SingleOrder key={o._id} {...o} />
+                          <SingleOrder {...o} />
                         ))}
                       </div>
                     )}
@@ -150,12 +148,13 @@ export default function AccountPage() {
                     )}
                   </>
                 )}
-          </WhiteBox>
-       </div>
-       <div>
-        <RevealWrapper delay={100}>
-         <WhiteBox>
-         <h2>{session ? 'Account details' : 'Login'}</h2>
+              </WhiteBox>
+            </RevealWrapper>
+          </div>
+          <div>
+            <RevealWrapper delay={100}>
+              <WhiteBox>
+                <h2>{session ? 'Account details' : 'Login'}</h2>
                 {!addressLoaded && (
                   <Spinner fullWidth={true} />
                 )}
@@ -206,13 +205,11 @@ export default function AccountPage() {
                 {!session && (
                   <Button primary onClick={login}>Login with Google</Button>
                 )}
-         </WhiteBox>
-         </RevealWrapper>
-       </div>
-      </ColsWrapper>
-    
-     </Center>
+              </WhiteBox>
+            </RevealWrapper>
+          </div>
+        </ColsWrapper>
+      </Center>
     </>
-  )
-
+  );
 }
